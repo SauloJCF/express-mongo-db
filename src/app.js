@@ -40,6 +40,7 @@ app.put('/livros/:id', (req, res) => {
 });
 
 app.delete('/livros/:id', (req, res) => {
+    const index = buscaLivro(req.params.id);
 function buscaLivro(id) {
     return (
         livros.findIndex((livro) => livro.id === Number(id))
