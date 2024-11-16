@@ -39,6 +39,7 @@ app.put('/livros/:id', (req, res) => {
     res.status(200).json(livros[index]);
 });
 
+app.delete('/livros/:id', (req, res) => {
 function buscaLivro(id) {
     return (
         livros.findIndex((livro) => livro.id === Number(id))
