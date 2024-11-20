@@ -46,6 +46,18 @@ class LivroController {
       });
     }
   }
+
+  static async removerLivro(req, res) {
+    try {
+      const id = String(req.params.id);
+      await livro.findByIdAndDelete(id);
+      res.status(200).json({ message: "livro excluído" });
+    } catch (erro) {
+      res.status(500).json({
+        message: `${erro.message} - falha ao processar exclusão do livro`,
+      });
+    }
+  }
 }
 
 export default LivroController;
