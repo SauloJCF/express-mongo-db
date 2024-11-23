@@ -4,7 +4,7 @@ import { autor } from "../models/Autor.js";
 class LivroController {
   static async listarLivros(req, res) {
     try {
-      const livros = await livro.find({});
+      const livros = await livro.find({}).populate("autor").exec();
       res.status(200).json(livros);
     } catch (erro) {
       res
@@ -16,7 +16,7 @@ class LivroController {
   static async listarLivroPorId(req, res) {
     try {
       const id = String(req.params.id);
-      const livroEncontrado = await livro.findById(id);
+      const livroEncontrado = await livro.findById(id).populate("autor").exec();
       res.status(200).json(livroEncontrado);
     } catch (erro) {
       res.status(500).json({
@@ -28,9 +28,7 @@ class LivroController {
   static async cadastrarLivro(req, res) {
     try {
       const novoLivro = req.body;
-      const autorEncontrado = await autor.findById(novoLivro.autor);
-      const livroCompleto = { ...novoLivro, autor: { ...autorEncontrado._doc } };
-      const livroCriado = await livro.create(livroCompleto);
+      const livroCriado = await livro.create(novoLivro);
       res.status(201).json({ message: "criado com sucesso", livro: livroCriado });
     } catch (erro) {
       res
@@ -67,7 +65,7 @@ class LivroController {
     try {
       const editora = req.query.editora;
       
-      const livrosEncontrados = await livro.find({ editora: editora });
+      const livrosEncontrados = await livro.find({ editora: editora }).populate("autor").exec();
 
       res.status(200).json(livrosEncontrados);
     } catch (erro) {
