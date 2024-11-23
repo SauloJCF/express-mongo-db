@@ -62,6 +62,20 @@ class LivroController {
       });
     }
   }
+
+  static async listarLivroPorEditora(req, res) {
+    try {
+      const editora = req.query.editora;
+      
+      const livrosEncontrados = await livro.find({ editora: editora });
+
+      res.status(200).json(livrosEncontrados);
+    } catch (erro) {
+      res.status(500).json({
+        message: `${erro.message} - falha ao processar busca do livro`,
+      });
+    }
+  }
 }
 
 export default LivroController;
