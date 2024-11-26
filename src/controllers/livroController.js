@@ -1,5 +1,7 @@
+import ErroNaoEncontrado from "../erros/ErroNaoEncontrado.js";
 import livro from "../models/Livros.js";
 
+const mensagemIDLivroNaoEncontrado = "ID do livro não encontrado.";
 class LivroController {
   static async listarLivros(req, res, next) {
     try {
@@ -14,7 +16,11 @@ class LivroController {
     try {
       const id = String(req.params.id);
       const livroEncontrado = await livro.findById(id).populate("autor").exec();
-      res.status(200).json(livroEncontrado);
+      if (livroEncontrado) {
+        res.status(200).json(livroEncontrado);
+      } else {
+        next(new ErroNaoEncontrado(mensagemIDLivroNaoEncontrado));
+      }
     } catch (erro) {
       next(erro);
     }
@@ -35,8 +41,11 @@ class LivroController {
   static async atualizarLivro(req, res, next) {
     try {
       const id = String(req.params.id);
-      await livro.findByIdAndUpdate(id, req.body);
-      res.status(200).json({ message: "livro atualizado" });
+      if (await livro.findByIdAndUpdate(id, req.body)) {
+        res.status(200).json({ message: "livro atualizado" });
+      } else {
+        next(new ErroNaoEncontrado(mensagemIDLivroNaoEncontrado));
+      }
     } catch (erro) {
       next(erro);
     }
@@ -45,8 +54,12 @@ class LivroController {
   static async removerLivro(req, res, next) {
     try {
       const id = String(req.params.id);
-      await livro.findByIdAndDelete(id);
-      res.status(200).json({ message: "livro excluído" });
+
+      if (await livro.findByIdAndDelete(id)) {
+        res.status(200).json({ message: "livro excluído" });
+      } else {
+        next(new ErroNaoEncontrado(mensagemIDLivroNaoEncontrado));
+      }
     } catch (erro) {
       next(erro);
     }
