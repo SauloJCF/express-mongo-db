@@ -1,5 +1,5 @@
 import ErroNaoEncontrado from "../erros/ErroNaoEncontrado.js";
-import { autor } from "../models/Autor.js";
+import { autor } from "../models/Index.js";
 
 const mensagemIDAutorNaoEncontrado = "ID do(a) autor(a) não encontrado.";
 class AutorController {
