@@ -1,5 +1,5 @@
 import ErroNaoEncontrado from "../erros/ErroNaoEncontrado.js";
-import livro from "../models/Livros.js";
+import livro from "../models/Livro.js";
 
 const mensagemIDLivroNaoEncontrado = "ID do livro não encontrado.";
 class LivroController {
