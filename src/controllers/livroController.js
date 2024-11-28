@@ -1,5 +1,5 @@
 import ErroNaoEncontrado from "../erros/ErroNaoEncontrado.js";
-import { livro } from "../models/Index.js";
+import { autor, livro } from "../models/Index.js";
 
 const mensagemIDLivroNaoEncontrado = "ID do livro não encontrado.";
 class LivroController {
@@ -67,7 +67,7 @@ class LivroController {
 
   static async listarLivroPorFiltro(req, res, next) {
     try {
-      const busca = processaBusca(req);
+      const busca = await processaBusca(req);
 
       const livrosEncontrados = await livro
         .find(busca)
@@ -81,8 +81,8 @@ class LivroController {
   }
 }
 
-function processaBusca(req) {
-  const { editora, titulo, minPaginas, maxPaginas } = req.query;
+async function processaBusca(req) {
+  const { editora, titulo, minPaginas, maxPaginas, autorNome } = req.query;
 
   const busca = {};
 
@@ -99,6 +99,13 @@ function processaBusca(req) {
 
     if (buscaPaginas) busca.paginas = buscaPaginas;
   }
+
+  if (autorNome) {
+    const autorEncontrado = await autor.findOne({ nome: autorNome });
+
+    busca.autor = autorEncontrado._id;
+  }
+
   return busca;
 }
 
