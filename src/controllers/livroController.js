@@ -5,7 +5,7 @@ const mensagemIDLivroNaoEncontrado = "ID do livro não encontrado.";
 class LivroController {
   static async listarLivros(req, res, next) {
     try {
-      const livros = livro.find().populate("autor");
+      const livros = livro.find();
 
       req.resultado = livros;
 
@@ -18,7 +18,7 @@ class LivroController {
   static async listarLivroPorId(req, res, next) {
     try {
       const id = String(req.params.id);
-      const livroEncontrado = await livro.findById(id).populate("autor").exec();
+      const livroEncontrado = await livro.findById(id).exec();
       if (livroEncontrado) {
         res.status(200).json(livroEncontrado);
       } else {
@@ -74,7 +74,7 @@ class LivroController {
 
       if (!busca) return res.status(200).json([]);
 
-      const livrosEncontrados = livro.find(busca).populate("autor");
+      const livrosEncontrados = livro.find(busca);
 
       req.resultado = livrosEncontrados;
 
