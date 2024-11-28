@@ -5,8 +5,9 @@ const mensagemIDAutorNaoEncontrado = "ID do(a) autor(a) não encontrado.";
 class AutorController {
   static async listarAutores(req, res, next) {
     try {
-      const autores = await autor.find({});
-      res.status(200).json(autores);
+      const autores = autor.find({});
+      req.resultado = autores;
+      next();
     } catch (erro) {
       next(erro);
     }
