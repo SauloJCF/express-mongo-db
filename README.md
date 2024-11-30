@@ -37,6 +37,7 @@ As seguintes tecnologias foram utilizadas na construção do projeto:
 ## ➡️ Rotas
 
 Até o presete momento, a API dispõe das seguintes rotas:
+
 - GET `/livros`: listar todos os livros cadastrados.
 - GET `/livros:id`: buscar um livro por ID.
 - GET `/livros/busca?editora=x`: buscar um livro pelo nome da editora.
@@ -48,3 +49,15 @@ Até o presete momento, a API dispõe das seguintes rotas:
 - POST `/autores`: cadastrar um autor.
 - DELETE `/autores/:id`: excluir um autor.
 - PUT `/autores/:id`: editar um autor.
+
+## Principais Temas Abordados
+
+- Criação de uma API do zero, seguindo o estilo arquitetural REST.
+- Funcionamento das requisições HTTP.
+- Utilização da ferramenta Express para criação de aplicações robustas e escaláveis.
+- Bancos de dados MongoDB e biblioteca Mongoose, em conjunto com o Node.js.
+- Tratamento de erros de forma centralizada e organlizada.
+- Middlewares do Express.
+- Validações através do Mongoose.
+- Buscas e filtros com MongoDB.
+- Implementar paginação de maneira centralizada.
